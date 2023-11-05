@@ -37,6 +37,14 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -45,12 +53,21 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Group         Group[]
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+model Group {
+  id         String      @id @default(cuid())
+  name       String
+  author     User        @relation(fields: [authorId], references: [id])
+  authorId   String
+  recipients Recipient[]
+}
 
-  @@unique([identifier, token])
+model Recipient {
+  id      String  @id @default(cuid())
+  name    String
+  email   String  @unique
+  group   Group?  @relation(fields: [groupId], references: [id])
+  groupId String?
 }
