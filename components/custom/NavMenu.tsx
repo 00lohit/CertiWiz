@@ -1,11 +1,9 @@
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Profile from "../NavMenu/Profile";
-import { useRouter } from "next/navigation";
-import { Search } from "../NavMenu/Search";
-import { Add } from "../NavMenu/Add";
+
+import { Contnet } from "../NavMenu/Content";
 
 export default function NavMenu() {
   const pathname = usePathname();
@@ -31,57 +29,3 @@ export default function NavMenu() {
     )
   );
 }
-
-const Contnet = ({ pathname, data }: ContentType) => {
-  return (
-    <div className="flex flex-1 items-center">
-      <ContentType {...{ pathname, data }} />
-      <Search />
-      <Add />
-    </div>
-  );
-};
-
-export interface ContentType {
-  data: {} | null;
-  pathname: string | null;
-}
-
-const ContentType = ({ pathname, data }: ContentType) => {
-  const router = useRouter();
-  let links = [
-    { name: "All", link: "/" },
-    { name: "Your", link: "/your" },
-  ];
-
-  let type = [
-    { name: "Certificate", link: "/certificate" },
-    { name: "Event", link: "/event" },
-  ];
-
-  return (
-    <nav className={"flex items-center"}>
-      {data && (
-        <Tabs defaultValue={pathname ?? "/"} className="m-2">
-          <TabsList className="grid grid-cols-2">
-            {links.map(({ name, link }) => (
-              <TabsTrigger onClick={() => router.replace(link)} value={link}>
-                {name}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
-      )}
-
-      <Tabs defaultValue={pathname ?? "/"} className="m-2">
-        <TabsList className="grid grid-cols-2">
-          {type.map(({ name, link }) => (
-            <TabsTrigger onClick={() => router.replace(link)} value={link}>
-              {name}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
-    </nav>
-  );
-};
