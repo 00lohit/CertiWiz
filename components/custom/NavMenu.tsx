@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Profile from "../NavMenu/Profile";
 import { useRouter } from "next/navigation";
 import { Search } from "../NavMenu/Search";
+import { Add } from "../NavMenu/Add";
 
 export default function NavMenu() {
   const pathname = usePathname();
@@ -14,12 +15,16 @@ export default function NavMenu() {
     pathname !== "/auth" && (
       <div>
         <div className="p-2 px-4 flex justify-between items-center">
-          <div className="flex flex-row items-center justify-center">
+          <div className="flex flex-row items-center justify-center mr-2">
             <h1 className="font-bold text-3xl">CertiWiz</h1>
           </div>
-          <ContentType {...{ pathname, data }} />
-          <Search />
+          <div className="flex-1 hidden lg:block">
+            <Contnet {...{ pathname, data }} />
+          </div>
           <Profile data={data} />
+        </div>
+        <div className="p-2 flex justify-between items-center lg:hidden">
+          <Contnet {...{ pathname, data }} />
         </div>
         <hr />
       </div>
@@ -27,7 +32,17 @@ export default function NavMenu() {
   );
 }
 
-interface ContentType {
+const Contnet = ({ pathname, data }: ContentType) => {
+  return (
+    <div className="flex flex-1 items-center">
+      <ContentType {...{ pathname, data }} />
+      <Search />
+      <Add />
+    </div>
+  );
+};
+
+export interface ContentType {
   data: {} | null;
   pathname: string | null;
 }

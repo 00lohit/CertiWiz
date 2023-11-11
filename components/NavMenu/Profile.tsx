@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { Button } from "../ui/button";
 import { Session } from "next-auth";
-import { Add } from "./Add";
 
 interface dataFormat {
   data: null | Session;
@@ -24,7 +23,6 @@ export default function Profile({ data }: dataFormat) {
     <div className="flex flex-row items-center justify-center ml-2">
       {data ? (
         <>
-          <Add />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar>

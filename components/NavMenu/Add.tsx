@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 
 export const Add = () => {
   return (
-    <div className="mr-4">
+    <div className="m-2">
       <Dialog>
         <DialogTrigger asChild>
           <Button variant="outline">

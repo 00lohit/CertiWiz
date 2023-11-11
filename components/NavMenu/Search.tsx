@@ -6,7 +6,7 @@ export const Search = () => {
       id="search"
       placeholder="Search..."
       defaultValue=""
-      className="flex-1"
+      className="flex-1 m-2"
     />
   );
 };
