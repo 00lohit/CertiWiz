@@ -8,16 +8,17 @@ export const Search = () => {
   const router = useRouter();
 
   const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
     e.preventDefault();
-    router.push(genrateUrl(e.target.value));
+    value.length > 3 && router.push(genrateUrl(value));
   };
 
   return (
     <Input
       id="search"
       placeholder={!event ? 'Search via "email"...' : 'Search via "event"...'}
-      defaultValue={""}
-      value={value ?? ""}
+      defaultValue={value ?? ""}
+      // value={value ?? ""}
       onChange={onSearchChange}
       className="flex-1 m-2"
     />
