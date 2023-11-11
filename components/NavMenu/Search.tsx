@@ -1,11 +1,13 @@
 import { Input } from "@/components/ui/input";
 import useDebounce from "@/lib/useDebounce";
 import useUrlQuery from "@/lib/useUrlQuery";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const Search = () => {
-  const { value: event } = useUrlQuery("isEvent");
+  const pathname = usePathname();
+  let isEvent = pathname == "/events";
+
   const { value, genrateUrl } = useUrlQuery("search");
   const router = useRouter();
 
@@ -26,7 +28,7 @@ export const Search = () => {
   return (
     <Input
       id="search"
-      placeholder={!event ? 'Search via "email"...' : 'Search via "event"...'}
+      placeholder={!isEvent ? 'Search via "email"...' : 'Search via "event"...'}
       defaultValue={value ?? ""}
       value={search}
       onChange={onSearchChange}

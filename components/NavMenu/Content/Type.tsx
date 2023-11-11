@@ -10,17 +10,15 @@ const Type = ({ pathname, data }: ContentType) => {
   ];
 
   return (
-    data && (
-      <Tabs defaultValue={pathname ?? "/"} className="m-2">
-        <TabsList className="grid grid-cols-2">
-          {links.map(({ name, link }) => (
-            <TabsTrigger onClick={() => router.replace(link)} value={link}>
-              {name}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-      </Tabs>
-    )
+    <Tabs defaultValue={pathname ?? "/"} className="m-2">
+      <TabsList className="grid grid-cols-2">
+        {links.map(({ name, link }) => (
+          <TabsTrigger onClick={() => router.replace(link)} value={link}>
+            {name}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
   );
 };
 

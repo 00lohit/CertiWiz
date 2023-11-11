@@ -18,13 +18,20 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ""
     })
   ],
+  callbacks: {
+    session: ({ session, token }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: token.sub,
+      },
+    }),
+  },
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt'
   },
-  jwt: {
-    secret: process.env.NEXTAUTH_SECRET,
-  },
+
   pages: {
     signIn: '/auth',
   }

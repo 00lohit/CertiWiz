@@ -46,28 +46,31 @@ model VerificationToken {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String        @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?       @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  Group         Group[]
+  Event         Event[]
+  Certificate   Certificate[]
 }
 
-model Group {
-  id         String      @id @default(cuid())
-  name       String
-  author     User        @relation(fields: [authorId], references: [id])
-  authorId   String
-  recipients Recipient[]
+model Event {
+  id           String        @id @default(cuid())
+  name         String
+  password     String // You may want to hash the password for security
+  creatorId    String
+  creator      User          @relation(fields: [creatorId], references: [id])
+  certificates Certificate[]
 }
 
-model Recipient {
-  id      String  @id @default(cuid())
-  name    String
-  email   String  @unique
-  group   Group?  @relation(fields: [groupId], references: [id])
-  groupId String?
+model Certificate {
+  id       String @id @default(cuid())
+  eventId  String
+  event    Event  @relation(fields: [eventId], references: [id])
+  userId   String
+  user     User   @relation(fields: [userId], references: [id])
+  template String
 }

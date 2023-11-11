@@ -13,18 +13,20 @@ const Acess = ({ pathname, data }: ContentType) => {
   ];
 
   return (
-    <Tabs defaultValue={value ?? ""} className="m-2">
-      <TabsList className="grid grid-cols-2">
-        {type.map(({ name, link }) => (
-          <TabsTrigger
-            onClick={() => router.push(genrateUrl(link))}
-            value={link}
-          >
-            {name}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-    </Tabs>
+    data && (
+      <Tabs defaultValue={value ?? ""} className="m-2">
+        <TabsList className="grid grid-cols-2">
+          {type.map(({ name, link }) => (
+            <TabsTrigger
+              onClick={() => router.push(genrateUrl(link))}
+              value={link}
+            >
+              {name}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
+    )
   );
 };
 
