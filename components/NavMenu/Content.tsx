@@ -2,8 +2,8 @@
 
 import { Search } from "../NavMenu/Search";
 import { Add } from "../NavMenu/Add";
-import Acess from "./Content/Acess";
-import Type from "./Content/Type";
+import Acess from "./Content/Type";
+import Type from "./Content/Acess";
 
 export interface ContentType {
   data: {} | null;
