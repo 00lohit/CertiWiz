@@ -40,7 +40,7 @@ export const Add = () => {
           const data = await response.json();
           console.log("Event created:", data.event);
 
-          let { id } = data.event;
+          let { id } = data.data;
           router.push("/events/" + id);
         } else {
           const errorData = await response.json();

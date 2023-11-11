@@ -16,8 +16,9 @@ const Acess = ({ pathname, data }: ContentType) => {
     data && (
       <Tabs defaultValue={value ?? ""} className="m-2">
         <TabsList className="grid grid-cols-2">
-          {type.map(({ name, link }) => (
+          {type.map(({ name, link }, i) => (
             <TabsTrigger
+              key={i.toString()}
               onClick={() => router.push(genrateUrl(link))}
               value={link}
             >

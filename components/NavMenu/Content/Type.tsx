@@ -12,8 +12,12 @@ const Type = ({ pathname, data }: ContentType) => {
   return (
     <Tabs defaultValue={pathname ?? "/"} className="m-2">
       <TabsList className="grid grid-cols-2">
-        {links.map(({ name, link }) => (
-          <TabsTrigger onClick={() => router.replace(link)} value={link}>
+        {links.map(({ name, link }, i) => (
+          <TabsTrigger
+            key={i.toString()}
+            onClick={() => router.replace(link)}
+            value={link}
+          >
             {name}
           </TabsTrigger>
         ))}
