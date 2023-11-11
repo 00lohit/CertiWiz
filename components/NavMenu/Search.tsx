@@ -15,7 +15,7 @@ export const Search = () => {
   const debouncedValue = useDebounce(search, 690);
 
   useEffect(() => {
-    // router.push(genrateUrl(search));
+    router.push(genrateUrl(search));
     return () => {};
   }, [debouncedValue]);
 

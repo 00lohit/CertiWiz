@@ -22,35 +22,28 @@ export const Add = () => {
     password: "",
   });
 
-  let session: any = useSession().data;
-
   const handleCreateEvent = async () => {
-    if (session) {
-      let creatorId = session.user.id;
-      try {
-        const response = await fetch("/api/events/create", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ ...data, creatorId }),
-        });
+    try {
+      const response = await fetch("/api/events/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...data }),
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log("Event created:", data.event);
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Event created:", data.event);
 
-          let { id } = data.data;
-          router.push("/events/" + id);
-        } else {
-          const errorData = await response.json();
-          console.error("Error creating event:", errorData.error);
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
+        let { id } = data.data;
+        router.push("/events/" + id);
+      } else {
+        const errorData = await response.json();
+        console.error("Error creating event:", errorData.error);
       }
-    } else {
-      console.error("User is not authenticated");
+    } catch (error) {
+      console.error("An error occurred:", error);
     }
   };
 

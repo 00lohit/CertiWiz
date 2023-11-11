@@ -9,15 +9,19 @@ export default function useUrlQuery(name: string) {
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams);
-      params.set(name, value);
+
+      if (value.length > 0) {
+        params.set(name, value);
+      } else {
+        params.delete(name);
+      }
 
       return params.toString();
     },
     [searchParams]
   );
-
   let genrateUrl = (value: string) =>
-    pathname + (value.length > 0 ? "?" + createQueryString(name, value) : "");
+    pathname + "?" + createQueryString(name, value);
 
   return { genrateUrl, value };
 }

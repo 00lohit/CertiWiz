@@ -1,21 +1,15 @@
 "use client";
 import useUrlQuery from "@/lib/useUrlQuery";
-import { useSession } from "next-auth/react";
+``;
 import { useEffect, useState } from "react";
 
 export default function Event() {
   const [event, setEvent] = useState([]);
-  const { value } = useUrlQuery("my");
-
-  let session: any = useSession().data;
-  let creatorId = session?.user?.id;
+  const my = useUrlQuery("my").value;
+  const search = useUrlQuery("search").value;
 
   useEffect(() => {
-    fetch(`/api/events/all?my=` + value, {
-      headers: {
-        Authorization: creatorId,
-      },
-    })
+    fetch(`/api/events/all?my=${my}&search=${search ?? ""}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -25,7 +19,7 @@ export default function Event() {
       })
       .then((data) => setEvent(data))
       .catch((error) => console.error("Error fetching event:", error));
-  }, [value, creatorId]);
+  }, [my, search]);
 
   return (
     <h1>
