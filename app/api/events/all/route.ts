@@ -5,11 +5,20 @@ const prisma = new PrismaClient();
 
 export async function GET(req: NextRequest, res: NextResponse) {
 
+    const searchParams = req.nextUrl.searchParams
+    const my = JSON.parse(searchParams.get('my') ?? "false")
+    const creatorId = req.headers.get('Authorization') ?? "";
+
 
     try {
-        const data = await prisma.event.findMany()
+        const data = await prisma.event.findMany(my ? {
+            where: {
+                creatorId
+            }
+        } : undefined)
 
-        return NextResponse.json({ message: 'successfull', data }, { status: 200 })
+
+        return NextResponse.json(data, { status: 200 })
 
     } catch (error) {
         console.error(error);
