@@ -9,8 +9,10 @@ export default function NavMenu() {
   const pathname = usePathname();
   let { data } = useSession();
 
+  const shouldRenderNavMenu = pathname == "/" || pathname == "/events";
+
   return (
-    pathname !== "/auth" && (
+    shouldRenderNavMenu && (
       <div>
         <div className="p-2 px-4 flex justify-between items-center">
           <div className="flex flex-row items-center justify-center mr-2">
