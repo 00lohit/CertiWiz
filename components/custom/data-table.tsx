@@ -21,26 +21,25 @@ import { useEffect } from "react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  onPaginationChange?: (x: any) => void;
+  count: number;
+  length: number;
+  setPage: (a: string) => void;
+  page: string | null;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  onPaginationChange,
+  count,
+  length,
+  setPage,
+  page = "1",
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
   });
-
-  const currentPageIndex = table.getState().pagination.pageIndex;
-
-  useEffect(() => {
-    onPaginationChange && onPaginationChange(currentPageIndex);
-  }, [currentPageIndex]);
 
   return (
     <div>
@@ -94,24 +93,68 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+      <Pagination
+        {...{
+          data: data.length,
+          count,
+          length,
+          setPage,
+          page,
+        }}
+      />
     </div>
   );
 }
+
+interface PaginationProps {
+  data: number;
+  count: number;
+  length: number;
+  setPage: (a: string) => void;
+  page: string | null;
+}
+
+const Pagination = ({
+  data,
+  count,
+  length,
+  setPage,
+  page,
+}: PaginationProps) => {
+  let num = parseInt(page ?? "");
+
+  const pageNumber = isNaN(num) ? 1 : num;
+
+  const PreviousDisbaled = pageNumber <= 1;
+  const NextDisbaled = count <= length * pageNumber;
+
+  const onPrevious = () => {
+    let dec = pageNumber - 1;
+    setPage(dec.toString());
+  };
+  const onNext = () => {
+    let inc = pageNumber + 1;
+    setPage(inc.toString());
+  };
+
+  return (
+    <div className="flex items-center justify-end space-x-2 py-4">
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={onPrevious}
+        disabled={PreviousDisbaled}
+      >
+        Previous
+      </Button>
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={onNext}
+        disabled={NextDisbaled}
+      >
+        Next
+      </Button>
+    </div>
+  );
+};
