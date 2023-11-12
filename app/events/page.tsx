@@ -1,10 +1,21 @@
 "use client";
+import { DataTable } from "@/components/custom/data-table";
 import useUrlQuery from "@/lib/useUrlQuery";
-``;
 import { useEffect, useState } from "react";
 
+export const columns: any = [
+  {
+    accessorKey: "id",
+    header: "ID",
+  },
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+];
+
 export default function Event() {
-  const [event, setEvent] = useState([]);
+  const [event, setEvent] = useState({ data: [] });
   const my = useUrlQuery("my").value;
   const search = useUrlQuery("search").value;
 
@@ -22,9 +33,12 @@ export default function Event() {
   }, [my, search]);
 
   return (
-    <h1>
-      {event.length}
-      {JSON.stringify(event)}
-    </h1>
+    <div className="container mx-auto py-10">
+      <DataTable
+        columns={columns}
+        data={event.data}
+        onPaginationChange={console.log}
+      />
+    </div>
   );
 }
