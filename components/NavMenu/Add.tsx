@@ -12,7 +12,6 @@ import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export const Add = () => {
@@ -59,7 +58,7 @@ export const Add = () => {
           <DialogHeader>
             <DialogTitle>Add Event</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
+              {`Make changes to your profile here. Click save when you're done.`}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

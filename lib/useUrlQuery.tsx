@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function useUrlQuery(name: string) {
   const pathname = usePathname();

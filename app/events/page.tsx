@@ -3,7 +3,7 @@ import { DataTable } from "@/components/custom/data-table";
 import useUrlQuery from "@/lib/useUrlQuery";
 import { useEffect, useState } from "react";
 
-export const columns: any = [
+const columns: any = [
   {
     accessorKey: "id",
     header: "ID",
