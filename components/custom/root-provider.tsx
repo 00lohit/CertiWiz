@@ -14,8 +14,10 @@ export default function RootProvider({
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       <SessionProvider>
-        <NavMenu data={data} />
-        {children}
+        <div className="w-screen h-screen flex flex-col">
+          <NavMenu data={data} />
+          <div className="flex-1">{children}</div>
+        </div>
       </SessionProvider>
     </ThemeProvider>
   );

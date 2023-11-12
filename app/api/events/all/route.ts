@@ -45,10 +45,17 @@ export async function GET(req: NextRequest, res: NextResponse) {
         ]);
 
 
-        const modifiedData = data.map((event: any) => ({
-            ...event,
-            creator: event.creator.name
-        }));
+        const modifiedData = data.map((event: any) => {
+            let obj = {
+                ...event,
+                creator: event.creator.name
+            }
+
+            delete obj.password
+            delete obj.creatorId
+
+            return obj
+        });
 
 
 
