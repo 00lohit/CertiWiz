@@ -4,6 +4,8 @@ import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import RootProvider from "@/components/custom/root-provider";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -15,11 +17,12 @@ export const metadata: Metadata = {
   description: "Access, share, and generate certificates",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const data: any = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body
@@ -28,7 +31,7 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <RootProvider>{children}</RootProvider>
+        <RootProvider data={data}>{children}</RootProvider>
       </body>
     </html>
   );

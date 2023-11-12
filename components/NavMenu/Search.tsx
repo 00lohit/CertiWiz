@@ -8,6 +8,7 @@ export const Search = () => {
   const pathname = usePathname();
   let isEvent = pathname == "/events";
   const initialRender = useRef(true);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const { value, genrateUrl } = useUrlQuery("search");
   const router = useRouter();
@@ -18,6 +19,7 @@ export const Search = () => {
 
   useEffect(() => {
     if (initialRender.current) {
+      search.length > 0 && inputRef.current && inputRef.current.focus();
       initialRender.current = false;
       return;
     }
@@ -32,6 +34,7 @@ export const Search = () => {
   return (
     <Input
       id="search"
+      ref={inputRef}
       placeholder={!isEvent ? 'Search via "email"...' : 'Search via "event"...'}
       // defaultValue={value ?? ""}
       value={search}

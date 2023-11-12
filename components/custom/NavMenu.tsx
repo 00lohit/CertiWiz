@@ -1,13 +1,11 @@
-import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 import Profile from "../NavMenu/Profile";
 
 import { Contnet } from "../NavMenu/Content";
 
-export default function NavMenu() {
+export default function NavMenu({ data }: any) {
   const pathname = usePathname();
-  let { data } = useSession();
 
   const shouldRenderNavMenu = pathname == "/" || pathname == "/events";
 

@@ -1,20 +1,22 @@
 "use client";
-import { ModeToggle, ThemeProvider } from "@/components/custom/theme-provider";
+import { ThemeProvider } from "@/components/custom/theme-provider";
 import { SessionProvider } from "next-auth/react";
 import NavMenu from "./NavMenu";
+import { dataFormat } from "../NavMenu/Profile";
 
 export default function RootProvider({
+  data,
   children,
 }: {
+  data: dataFormat;
   children: React.ReactNode;
 }) {
   return (
-    <SessionProvider>
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <NavMenu />
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <SessionProvider>
+        <NavMenu data={data} />
         {children}
-        <ModeToggle className="fixed right-4 bottom-4" />
-      </ThemeProvider>
-    </SessionProvider>
+      </SessionProvider>
+    </ThemeProvider>
   );
 }
