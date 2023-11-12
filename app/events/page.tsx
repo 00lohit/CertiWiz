@@ -70,6 +70,7 @@ export default function Event() {
   return (
     <div className="p-4">
       <DataTable
+        route={"events/"}
         columns={columns}
         data={data.data}
         count={data.count}

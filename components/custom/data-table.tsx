@@ -16,6 +16,7 @@ import {
 
 import { Button } from "../ui/button";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -24,6 +25,7 @@ interface DataTableProps<TData, TValue> {
   length: number;
   setPage: (a: string) => void;
   page: string | null;
+  route?: string;
 }
 
 export function DataTable<TData, TValue>({
@@ -33,12 +35,22 @@ export function DataTable<TData, TValue>({
   length,
   setPage,
   page = "1",
+  route,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  const router = useRouter();
+
+  const onClick = (row: any) => {
+    if (route) {
+      let id = row.original.id;
+      router.push(route + "/" + id);
+    }
+  };
 
   return (
     <div>
@@ -67,6 +79,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
+                  onClick={() => onClick(row)}
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
