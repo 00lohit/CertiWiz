@@ -40,7 +40,7 @@ const UserDetails = ({ data }: dataFormat) => {
         <DropdownMenuTrigger asChild>
           <Avatar>
             <AvatarImage src={image ?? ""} alt="@shadcn" />
-            <AvatarFallback>{name}</AvatarFallback>
+            <AvatarFallback>CW</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mt-2">

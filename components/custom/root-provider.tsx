@@ -12,7 +12,7 @@ export default function RootProvider({
   children: React.ReactNode;
 }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       <SessionProvider>
         <NavMenu data={data} />
         {children}
