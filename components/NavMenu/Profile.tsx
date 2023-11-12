@@ -44,7 +44,7 @@ const UserDetails = ({ data }: dataFormat) => {
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="mt-2">
-          <DropdownMenuItem onClick={() => signOut()}>
+          <DropdownMenuItem onClick={() => signOut({ callbackUrl: "/" })}>
             <LogOut className="mr-2 h-4 w-4" />
             <span>Log out</span>
           </DropdownMenuItem>
