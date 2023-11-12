@@ -115,7 +115,7 @@ export const Add = () => {
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
                     {data.date ? (
-                      format(data.date, "PPP")
+                      format(data.date, "dd-MM-yyyy")
                     ) : (
                       <span>Pick a date</span>
                     )}

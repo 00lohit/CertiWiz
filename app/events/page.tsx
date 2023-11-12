@@ -59,8 +59,6 @@ export default function Event() {
       .catch((error) => console.error("Error fetching event:", error));
   };
 
-  console.log(data.data[0]);
-
   useEffect(() => {
     apiCall();
   }, [my, search, page]);
