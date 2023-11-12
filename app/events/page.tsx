@@ -3,15 +3,24 @@ import { DataTable } from "@/components/custom/data-table";
 import useUrlQuery from "@/lib/useUrlQuery";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { format } from "date-fns";
 
 const columns: any = [
   {
-    accessorKey: "id",
-    header: "ID",
+    accessorKey: "date",
+    header: "Date",
+    cell: ({ row }: any) => {
+      const date = new Date(row.getValue("date"));
+      return format(date, "dd-MM-yyyy");
+    },
   },
   {
     accessorKey: "name",
-    header: "Name",
+    header: "Event",
+  },
+  {
+    accessorKey: "creator",
+    header: "Creator",
   },
 ];
 
@@ -31,7 +40,7 @@ export default function Event() {
 
   const { value: page, genrateUrl: setPage } = useUrlQuery("page");
 
-  let length = 5;
+  let length = 15;
 
   const apiCall = () => {
     fetch(

@@ -29,6 +29,13 @@ export async function GET(req: NextRequest, res: NextResponse) {
                 ...(my
                     ? { creatorId: creatorId, ...(search.length > 0 ? { name: { contains: search } } : {}) }
                     : { ...(search.length > 0 ? { name: { contains: search } } : {}) })
+            },
+            include: {
+                creator: {
+                    select: {
+                        name: true
+                    }
+                }
             }
         }
 
@@ -38,8 +45,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
         ]);
 
 
+        const modifiedData = data.map((event: any) => ({
+            ...event,
+            creator: event.creator.name
+        }));
 
-        return NextResponse.json({ data, count }, { status: 200 });
+
+
+
+        return NextResponse.json({ data: modifiedData, count }, { status: 200 });
     } catch (error) {
         console.error(error);
         return NextResponse.json(
