@@ -1,8 +1,5 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import Delete from "@/components/NavMenu/Delete";
-import { Update } from "@/components/NavMenu/Update";
+import Editable from "@/components/custom/EventEdit/Editable";
 import { format } from "date-fns";
-import { getServerSession } from "next-auth";
 import { Suspense } from "react";
 
 export default function Event({ params }: { params: { id: string } }) {
@@ -27,14 +24,10 @@ async function getEvent(id: string) {
 
 async function Sidebar({ id }: { id: string }) {
   let {
-    data: { creator, date, creatorId, name, password },
+    data: { creator, date, name },
   } = await getEvent(id);
 
-  const data: any = await getServerSession(authOptions);
-
   let dateText = date && format(new Date(date), "dd-MM-yyyy");
-
-  let editable = creatorId == data.user.id;
 
   return (
     <div className={"border-r overflow-hidden flex flex-col relative"}>
@@ -51,12 +44,7 @@ async function Sidebar({ id }: { id: string }) {
           <p className="text-sm  opacity-50">Date</p>
           <h2 className="mb-2 text-lg font-medium">{dateText}</h2>
         </div>
-        {editable && (
-          <div className="flex items-center justify-end justify-self-end absolute bottom-2 right-2">
-            <Delete id={id} />
-            <Update {...{ creator, date, creatorId, name, password, id }} />
-          </div>
-        )}
+        <Editable id={id} />
       </Suspense>
     </div>
   );

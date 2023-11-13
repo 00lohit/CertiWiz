@@ -24,14 +24,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
-export const Update = ({
-  creator,
-  date,
-  creatorId,
-  name,
-  password,
-  id,
-}: any) => {
+export const Update = ({ date, name, password, id }: any) => {
   const router = useRouter();
   const [data, setData] = useState({
     name: name,
