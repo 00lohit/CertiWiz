@@ -4,6 +4,7 @@ import useUrlQuery from "@/lib/useUrlQuery";
 import { useRouter } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { format } from "date-fns";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const columns: any = [
   {
@@ -30,6 +31,7 @@ export interface dataType {
 }
 
 export default function Event() {
+  const [Loading, setLoading] = useState(true);
   const router = useRouter();
   const [data, setData] = useState<dataType>({
     data: [],
@@ -42,21 +44,26 @@ export default function Event() {
 
   let length = 15;
 
-  const apiCall = () => {
-    fetch(
-      `/api/events/all?my=${my}&search=${
-        search ?? ""
-      }&size=${length.toString()}&page=${page ?? "1"}`
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Event not found");
-        }
-      })
-      .then((data) => setData(data))
-      .catch((error) => console.error("Error fetching event:", error));
+  const apiCall = async () => {
+    try {
+      setLoading(true);
+      let response = await fetch(
+        `/api/events/all?my=${my}&search=${
+          search ?? ""
+        }&size=${length.toString()}&page=${page ?? "1"}`
+      );
+
+      if (!response.ok) {
+        throw new Error("Event not found");
+      }
+
+      let data = await response.json();
+      setData(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching event:", error);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -69,7 +76,17 @@ export default function Event() {
 
   return (
     <div className="p-4">
-      <Suspense fallback={<div>Loading</div>}>
+      {Loading ? (
+        <div className="space-y-2">
+          <div className="space-x-2 flex w-full items-center justify-center">
+            <Skeleton className="h-7 flex-1" />
+            <Skeleton className="h-7 flex-1" />
+            <Skeleton className="h-7 flex-1" />
+          </div>
+          <Skeleton className="h-7 w-full" />
+          <Skeleton className="h-7 w-full" />
+        </div>
+      ) : (
         <DataTable
           route={"events/"}
           columns={columns}
@@ -79,7 +96,7 @@ export default function Event() {
           setPage={navigate}
           page={page}
         />
-      </Suspense>
+      )}
     </div>
   );
 }
