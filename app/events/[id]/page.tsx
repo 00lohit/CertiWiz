@@ -1,4 +1,4 @@
-import { Update } from "@/components/NavMenu/update";
+import { Update } from "@/components/NavMenu/Update";
 import { format } from "date-fns";
 
 export default function Event({ params }: { params: { id: string } }) {
@@ -21,7 +21,7 @@ async function getEvent(id: string) {
   return res.json();
 }
 
-export async function Sidebar({ id }: { id: string }) {
+async function Sidebar({ id }: { id: string }) {
   let {
     data: { creator, date, editable, name },
   } = await getEvent(id);
