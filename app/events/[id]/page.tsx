@@ -1,5 +1,6 @@
 import { Update } from "@/components/NavMenu/Update";
 import { format } from "date-fns";
+import { Suspense } from "react";
 
 export default function Event({ params }: { params: { id: string } }) {
   let { id } = params;
@@ -29,8 +30,9 @@ async function Sidebar({ id }: { id: string }) {
 
   return (
     <div className={"border-r overflow-hidden flex flex-col relative"}>
-      <Update id={id} />
-      {/* <Button
+      <Suspense fallback={<div>Loading</div>}>
+        <Update id={id} />
+        {/* <Button
         className={"absolute z-10 right-2 top-2"}
         variant="ghost"
         size="icon"
@@ -42,18 +44,19 @@ async function Sidebar({ id }: { id: string }) {
           <EditIcon className="h-4 w-4" />
         </div>
       </Button> */}
-      <div className="px-3 py-2 mt-4">
-        <p className="text-sm  opacity-50">Event Name</p>
-        <h2 className="mb-2 text-3xl font-semibold">{name}</h2>
-      </div>
-      <div className="px-3 py-2">
-        <p className="text-sm  opacity-50">Creator Name</p>
-        <h2 className="mb-2 text-xl font-medium">{creator}</h2>
-      </div>
-      <div className="px-3 py-2">
-        <p className="text-sm  opacity-50">Date</p>
-        <h2 className="mb-2 text-lg font-medium">{dateText}</h2>
-      </div>
+        <div className="px-3 py-2 mt-4">
+          <p className="text-sm  opacity-50">Event Name</p>
+          <h2 className="mb-2 text-3xl font-semibold">{name}</h2>
+        </div>
+        <div className="px-3 py-2">
+          <p className="text-sm  opacity-50">Creator Name</p>
+          <h2 className="mb-2 text-xl font-medium">{creator}</h2>
+        </div>
+        <div className="px-3 py-2">
+          <p className="text-sm  opacity-50">Date</p>
+          <h2 className="mb-2 text-lg font-medium">{dateText}</h2>
+        </div>
+      </Suspense>
     </div>
   );
 }
