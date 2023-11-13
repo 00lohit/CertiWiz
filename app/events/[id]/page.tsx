@@ -14,7 +14,7 @@ export default function Event({ params }: { params: { id: string } }) {
 }
 
 async function getEvent(id: string) {
-  let res = await fetch(`http://localhost:3000/api/events/${id}`);
+  let res = await fetch(process.env.NEXTAUTH_URL + `/api/events/${id}`);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

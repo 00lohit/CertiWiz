@@ -9,7 +9,6 @@ export async function GET(request: Request,
     { params }: { params: { id: string } }) {
     let { id } = params;
 
-
     const session: any = await getServerSession(authOptions)
     const creatorId = session?.user?.id ?? ""
 
