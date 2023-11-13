@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -30,9 +30,11 @@ export const Add = () => {
     password: "",
     date: new Date(),
   });
+  const [loading, setloading] = useState(false);
 
   const handleCreateEvent = async () => {
     try {
+      setloading(true);
       const response = await fetch("/api/events/create", {
         method: "POST",
         headers: {
@@ -136,9 +138,10 @@ export const Add = () => {
           <DialogFooter>
             <Button
               onClick={handleCreateEvent}
-              disabled={!data.name || !data.password}
+              disabled={!data.name || !data.password || loading}
               type="submit"
             >
+              {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
               Continue
             </Button>
           </DialogFooter>

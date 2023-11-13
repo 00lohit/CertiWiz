@@ -2,7 +2,7 @@
 import { DataTable } from "@/components/custom/data-table";
 import useUrlQuery from "@/lib/useUrlQuery";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { format } from "date-fns";
 
 const columns: any = [
@@ -69,15 +69,17 @@ export default function Event() {
 
   return (
     <div className="p-4">
-      <DataTable
-        route={"events/"}
-        columns={columns}
-        data={data.data}
-        count={data.count}
-        length={length}
-        setPage={navigate}
-        page={page}
-      />
+      <Suspense fallback={<div>Loading</div>}>
+        <DataTable
+          route={"events/"}
+          columns={columns}
+          data={data.data}
+          count={data.count}
+          length={length}
+          setPage={navigate}
+          page={page}
+        />
+      </Suspense>
     </div>
   );
 }
