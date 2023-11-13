@@ -7,10 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -26,6 +27,7 @@ import { Calendar as CalendarIcon } from "lucide-react";
 
 export const Update = ({ date, name, password, id }: any) => {
   const router = useRouter();
+  const [loading, setloading] = useState(false);
   const [data, setData] = useState({
     name: name,
     password: password,
@@ -34,8 +36,8 @@ export const Update = ({ date, name, password, id }: any) => {
 
   const handleCreateEvent = async () => {
     try {
-      const response = await fetch("/api/events/create", {
-        method: "POST",
+      const response = await fetch(`/api/events/${id}/update`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -44,10 +46,7 @@ export const Update = ({ date, name, password, id }: any) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Event created:", data.event);
-
-        let { id } = data.data;
-        router.push("/events/" + id);
+        router.refresh();
       } else {
         const errorData = await response.json();
         console.error("Error creating event:", errorData.error);
@@ -131,13 +130,16 @@ export const Update = ({ date, name, password, id }: any) => {
           </div>
 
           <DialogFooter>
-            <Button
-              onClick={handleCreateEvent}
-              disabled={!data.name || !data.password}
-              type="submit"
-            >
-              Continue
-            </Button>
+            <DialogClose>
+              <Button
+                onClick={handleCreateEvent}
+                disabled={!data.name || !data.password || !data.date || loading}
+                type="submit"
+              >
+                {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+                Continue
+              </Button>
+            </DialogClose>
           </DialogFooter>
         </DialogContent>
       </Dialog>

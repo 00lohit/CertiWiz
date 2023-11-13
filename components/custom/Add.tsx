@@ -45,8 +45,6 @@ export const Add = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Event created:", data.event);
-
         let { id } = data.data;
         router.push("/events/" + id);
       } else {

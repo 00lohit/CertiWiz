@@ -1,4 +1,5 @@
 import Editable from "@/components/custom/EventEdit/Editable";
+import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 import { Suspense } from "react";
 
@@ -31,7 +32,7 @@ async function Sidebar({ id }: { id: string }) {
 
   return (
     <div className={"border-r overflow-hidden flex flex-col relative"}>
-      <Suspense fallback={<div>Loading</div>}>
+      <Suspense fallback={<Loader />}>
         <div className="px-3 py-2 mt-4">
           <p className="text-sm  opacity-50">Event Name</p>
           <h2 className="mb-2 text-3xl font-semibold">{name}</h2>
@@ -49,3 +50,15 @@ async function Sidebar({ id }: { id: string }) {
     </div>
   );
 }
+
+const Loader = () => (
+  <div className="flex flex-col w-full space-y-6 p-3">
+    <Skeleton className="w-full h-12" />
+    <Skeleton className="w-full h-8" />
+    <Skeleton className="w-full h-6" />
+    <div className="space-x-4 flex items-center justify-end justify-self-end absolute bottom-2 right-2">
+      <Skeleton className="w-20 h-8" />
+      <Skeleton className="w-20 h-8" />
+    </div>
+  </div>
+);
