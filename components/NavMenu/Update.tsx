@@ -24,12 +24,19 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 
-export const Update = ({ id }: { id: string }) => {
+export const Update = ({
+  creator,
+  date,
+  creatorId,
+  name,
+  password,
+  id,
+}: any) => {
   const router = useRouter();
   const [data, setData] = useState({
-    name: "",
-    password: "",
-    date: new Date(),
+    name: name,
+    password: password,
+    date: date ? new Date(date) : new Date(),
   });
 
   const handleCreateEvent = async () => {
@@ -61,13 +68,11 @@ export const Update = ({ id }: { id: string }) => {
     <div className="m-2">
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline">
-            <Plus className="w-4 h-4 mr-2" /> Add Event
-          </Button>
+          <Button variant="outline">Update</Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>Add Event</DialogTitle>
+            <DialogTitle>Update Event</DialogTitle>
             <DialogDescription>
               {`Make changes to your profile here. Click save when you're done.`}
             </DialogDescription>
@@ -83,7 +88,6 @@ export const Update = ({ id }: { id: string }) => {
                 onChange={(n) =>
                   setData((e) => ({ ...e, name: n.target.value }))
                 }
-                defaultValue="Pedro Duarte"
                 className="col-span-3"
               />
             </div>
@@ -97,7 +101,6 @@ export const Update = ({ id }: { id: string }) => {
                 onChange={(n) =>
                   setData((e) => ({ ...e, password: n.target.value }))
                 }
-                defaultValue="Pedro Duarte"
                 className="col-span-3"
               />
             </div>

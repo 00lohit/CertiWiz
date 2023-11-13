@@ -84,7 +84,6 @@ export const Add = () => {
                 onChange={(n) =>
                   setData((e) => ({ ...e, name: n.target.value }))
                 }
-                defaultValue="Pedro Duarte"
                 className="col-span-3"
               />
             </div>
@@ -98,7 +97,6 @@ export const Add = () => {
                 onChange={(n) =>
                   setData((e) => ({ ...e, password: n.target.value }))
                 }
-                defaultValue="Pedro Duarte"
                 className="col-span-3"
               />
             </div>

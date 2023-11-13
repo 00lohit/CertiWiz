@@ -29,11 +29,10 @@ export async function GET(request: Request,
         let obj = {
             ...data,
             creator: data.creator.name,
-            editable: creatorId == data.creatorId
         }
 
-        delete obj.password
-        delete obj.creatorId
+        // delete obj.password
+        // delete obj.creatorId
 
         return NextResponse.json({ data: obj }, { status: 200 })
 
