@@ -34,7 +34,7 @@ async function Sidebar({ id }: { id: string }) {
 
   let dateText = date && format(new Date(date), "dd-MM-yyyy");
 
-  let editable = (creatorId = data.user.id);
+  let editable = creatorId == data.user.id;
 
   return (
     <div className={"border-r overflow-hidden flex flex-col relative"}>
