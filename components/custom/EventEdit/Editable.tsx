@@ -19,8 +19,8 @@ export default function Editable({ id }: { id: string }) {
   };
 
   useEffect(() => {
-    apiCall();
-  });
+    id && apiCall();
+  }, [id]);
 
   return (
     data.editable && (
