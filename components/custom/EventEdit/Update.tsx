@@ -47,6 +47,7 @@ export const Update = ({ date, name, password, id }: any) => {
       if (response.ok) {
         const data = await response.json();
         router.refresh();
+        window.location.reload();
       } else {
         const errorData = await response.json();
         console.error("Error creating event:", errorData.error);

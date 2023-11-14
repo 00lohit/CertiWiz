@@ -22,6 +22,9 @@ function Sidebar({ id }: { id: string }) {
       <Suspense fallback={<Loader />}>
         <EventData id={id} />
       </Suspense>
+      <Suspense fallback={<EditLoader />}>
+        <Editable id={id} />
+      </Suspense>
     </div>
   );
 }
@@ -55,7 +58,6 @@ const EventData = async ({ id }: { id: string }) => {
         <p className="text-sm  opacity-50">Date</p>
         <h2 className="mb-2 text-lg font-medium">{dateText}</h2>
       </div>
-      <Editable id={id} />
     </>
   );
 };
@@ -65,9 +67,12 @@ const Loader = () => (
     <Skeleton className="w-full h-12" />
     <Skeleton className="w-full h-8" />
     <Skeleton className="w-full h-6" />
-    <div className="space-x-4 flex items-center justify-end justify-self-end absolute bottom-2 right-2">
-      <Skeleton className="w-20 h-8" />
-      <Skeleton className="w-20 h-8" />
-    </div>
+  </div>
+);
+
+const EditLoader = () => (
+  <div className="space-x-4 flex items-center justify-end justify-self-end absolute bottom-4 right-4">
+    <Skeleton className="w-20 h-8" />
+    <Skeleton className="w-20 h-8" />
   </div>
 );

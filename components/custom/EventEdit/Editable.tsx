@@ -1,26 +1,18 @@
 "use client";
-import { useEffect, useState } from "react";
 import Delete from "./Delete";
 import { Update } from "./Update";
 
-export default function Editable({ id }: { id: string }) {
-  const [data, setData] = useState<any>({});
-  const apiCall = async () => {
-    try {
-      let response = await fetch(`/api/events/${id}/editable`);
-      if (!response.ok) {
-        throw new Error("Event not found");
-      }
-      let data = await response.json();
-      setData(data.data);
-    } catch (error) {
-      console.error("Error fetching event:", error);
-    }
-  };
+async function getData(id: string) {
+  let res = await fetch(`/api/events/${id}/editable`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
 
-  useEffect(() => {
-    id && apiCall();
-  }, [id]);
+  return res.json();
+}
+
+export default async function Editable({ id }: { id: string }) {
+  let { data } = await getData(id);
 
   return (
     data.editable && (
