@@ -1,3 +1,4 @@
+"use client";
 import Editable from "@/components/custom/EventEdit/Editable";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
@@ -26,7 +27,7 @@ function Sidebar({ id }: { id: string }) {
 }
 
 async function getEvent(id: string) {
-  let res = await fetch(`${process.env.NEXTAUTH_URL}/api/events/${id}`);
+  let res = await fetch(`/api/events/${id}`);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
