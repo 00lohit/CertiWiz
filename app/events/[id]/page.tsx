@@ -1,10 +1,10 @@
-"use client";
+"use server";
 import Editable from "@/components/custom/EventEdit/Editable";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 import { Suspense, useEffect, useState } from "react";
 
-export default function Event({ params }: { params: { id: string } }) {
+export default async function Event({ params }: { params: { id: string } }) {
   let { id } = params;
 
   return (
@@ -27,7 +27,7 @@ function Sidebar({ id }: { id: string }) {
 }
 
 async function getEvent(id: string) {
-  let res = await fetch(`/api/events/${id}`);
+  let res = await fetch(`${process.env.NEXTAUTH_URL}/api/events/${id}`);
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
