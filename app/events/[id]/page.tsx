@@ -1,9 +1,10 @@
+"use server";
 import Editable from "@/components/custom/EventEdit/Editable";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format } from "date-fns";
 import { Suspense } from "react";
 
-export default function Event({ params }: { params: { id: string } }) {
+export default async function Event({ params }: { params: { id: string } }) {
   let { id } = params;
 
   return (
