@@ -1,13 +1,12 @@
+import { useServerSession } from '@/lib/useServerSession';
 import { PrismaClient } from '@prisma/client';
-import { getServerSession } from 'next-auth';
 import { NextResponse, NextRequest } from 'next/server';
-import { authOptions } from '../../auth/[...nextauth]/route';
 
 const prisma = new PrismaClient();
 
 export async function POST(req: NextRequest, res: NextResponse) {
 
-    const session: any = await getServerSession(authOptions)
+    const session: any = await useServerSession()
     const creatorId = session?.user?.id ?? ""
 
     try {

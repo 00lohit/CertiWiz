@@ -1,7 +1,6 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import { getServerSession } from "next-auth";
 import { NextResponse, NextRequest } from "next/server";
-import { authOptions } from "../../auth/[...nextauth]/route";
+import { useServerSession } from "@/lib/useServerSession";
 
 const prisma = new PrismaClient();
 
@@ -9,7 +8,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const searchParams = req.nextUrl.searchParams;
     const my = JSON.parse(searchParams.get("my") ?? "false");
     const search = searchParams.get("search") ?? "";
-    const session: any = await getServerSession(authOptions);
+    const session: any = await useServerSession()
     const creatorId = session?.user?.id ?? ""
     const page = parseInt(searchParams.get("page") ?? "");
     const size = parseInt(searchParams.get("size") ?? "");
